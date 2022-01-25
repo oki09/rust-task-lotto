@@ -34,16 +34,6 @@ fn main() {
         let lotto = Lotto::new(*take, *from);
         println!("{}", format_lotto_results(&lotto));
     }
-    /*let mut take: usize = 0;
-    for (idx, elem) in slice.iter().enumerate() {
-        if (idx + 1) % 2 == 0 {
-            let from: usize = elem.parse().expect("Could not parse number");
-            let lotto = Lotto::new(take, from);
-            println!("{}", format_lotto_results(&lotto));
-        } else {
-            take = elem.parse().expect("Could not parse number");
-        }
-    }*/
 }
 
 #[test]
