@@ -13,9 +13,9 @@ impl Lotto {
         let mut rng = &mut rand::thread_rng();
         let samples: Vec<usize> = (1..=from).collect();
         Lotto {
-            take: take,
-            from: from,
-            numbers: samples.choose_multiple(&mut rng, take).cloned().collect()
+            take,
+            from,
+            numbers: samples.choose_multiple(&mut rng, take).cloned().collect(),
         }
     }
 }
@@ -28,16 +28,22 @@ fn format_lotto_results(lotto: &Lotto) -> String {
 fn main() {
     let args: Vec<String> = env::args().collect();
     let slice = &args[1..];
-    let mut take: usize = 0;
+    for chunk in slice.chunks_exact(2) {
+        let take: &usize = &chunk[0].parse().expect("Could not parse number");
+        let from: &usize = &chunk[1].parse().expect("Could not parse number");
+        let lotto = Lotto::new(*take, *from);
+        println!("{}", format_lotto_results(&lotto));
+    }
+    /*let mut take: usize = 0;
     for (idx, elem) in slice.iter().enumerate() {
         if (idx + 1) % 2 == 0 {
-            let from: usize = elem.parse().unwrap();
+            let from: usize = elem.parse().expect("Could not parse number");
             let lotto = Lotto::new(take, from);
             println!("{}", format_lotto_results(&lotto));
         } else {
-            take = elem.parse().unwrap();
+            take = elem.parse().expect("Could not parse number");
         }
-    }
+    }*/
 }
 
 #[test]
